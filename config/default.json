@@ -4,66 +4,39 @@
        "name": "minecraft_mp",
        "url": "https://minecraft-mp.com/server/145239/vote/",
        "inputSelector": "#nickname",
-       "clearText": false,
-       "select":{
-            "toggle": true,
-            "boxSelector": "#accept"
-       } 
+       "select": "#accept"
    },
    {
        "name": "minecraft_server_list",
        "url": "https://minecraft-server-list.com/server/389267/vote/",
        "inputSelector": "#ignn",
-       "clearText": true,
-       "select":{
-            "toggle": false
-       } 
+       "clearText": true
    }, 
    {
        "name": "minecraft_servers",
        "url": "https://minecraftservers.org/vote/410424",
-       "inputSelector": "input[name='username']",
-       "clearText": false,
-       "select":{
-            "toggle": false
-       } 
+       "inputSelector": "input[name='username']"
    },
    {
        "name": "planet_minecraft",
        "url":  "https://www.planetminecraft.com/server/swancraft-3882768/vote/",
-       "inputSelector": "input[name='mcname']",
-       "clearText": false,
-       "select":{
-            "toggle": false
-       } 
+       "inputSelector": "input[name='mcname']"
    },
    {
        "name": "topG",
        "url": "https://topg.org/Minecraft/in-449700",
-       "inputSelector": "#username",
-       "clearText": false,
-       "select":{
-            "toggle": false
-       } 
+       "inputSelector": "#username"
    },
    {
        "name": "minecraft_server_net",
        "url": "https://minecraft-server.net/vote/SwanCraft/",
        "inputSelector": "#mc_user",
-       "clearText": false,
-       "select":{
-            "toggle": true,
-            "boxSelector": "label[for='rate-10']"
-       } 
+       "select": "label[for='rate-10']"
    },
    {
        "name": "top_minecraft_servers",
        "url": "https://topminecraftservers.org/vote/4455",
-       "inputSelector": "#username",
-       "clearText": false,
-       "select":{
-        "toggle": false
-       } 
+       "inputSelector": "#username"
    }
 ],
 

@@ -45,10 +45,14 @@ async function vote(browser, site) {
 
         newPage(browser, site)
             .then(result => page = result)
-            .then(_ => sleep(5000))
+            .then(_ => sleep(500))
             .then(_ => inputName(page, site))
-            .then(_ => sleep(5000))
+            .then(_ => sleep(500))
+            .then(_ => selectOptions(page, site))
+            .then(_ => sleep(500))
             .then(_ => resolve(page))
+            .then(_ => sleep(500))
+            .then(_ => solveCaptca(page))
             .catch(error => console.log(error))
 
     })
@@ -76,7 +80,8 @@ async function inputName(page, site) {
     return new Promise(function (resolve, reject) {
         page.$(site.inputSelector)
             .then(result => inputField = result)
-            .then(_ => inputField.focus())
+            .then(_ => inputField.click())
+            .then(_ => sleep(500))
             .then(_ => site.clearText ? clearText(inputField, page) : inputField)
             .then(_ => inputField.type(playerName, { delay: 200 }))
             .then(_ => resolve(page))
@@ -84,15 +89,30 @@ async function inputName(page, site) {
     })
 }
 
-async function selectBoxes(page, site) {
-    let selectInput = await page.$(site.select.boxSelector);
-    await selectInput.tap();
-    return true;
+async function selectOptions(page, site) {
+    var selectInput;
+
+    return new Promise(function (resolve, reject) {
+        if (site.select) {
+            page.$(site.select)
+                .then(result => selectInput = result)
+                .then(_ => selectInput.click())
+                .then(resolve())
+                .catch(error => reject(error))
+        }
+        else {
+            resolve()
+        }
+    })
 }
 
-async function solevCaptcha(page) {
-    new elementHandle
-    await page.solveRecaptchas()
+async function solveCaptca(page) {
+
+    return new Promise(function (resolve, reject) {
+        page.findRecaptchas()
+            .then(results => console.log(results))
+            .catch(error => reject(error))
+    })
 }
 
 function sleep(duration, value) {
