@@ -109,9 +109,7 @@ async function selectOptions(page, site) {
 async function solveCaptca(page) {
 
     return new Promise(function (resolve, reject) {
-        page.findRecaptchas()
-            .then(results => console.log(results))
-            .catch(error => reject(error))
+        
     })
 }
 
