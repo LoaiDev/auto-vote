@@ -1,5 +1,5 @@
 {
-  "name": "Vote",
+  "name": "vote",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "config": "^3.3.1",
+    "cron": "^1.8.2",
     "puppeteer": "^3.3.0",
     "puppeteer-extra": "^3.1.9",
     "puppeteer-extra-plugin-recaptcha": "^3.1.10",

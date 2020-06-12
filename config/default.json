@@ -40,9 +40,17 @@
    }
 ],
 
+    "captcha":{
+
+        "apiKey": "f804e7fb453a6117f3df546b9aaa054d",
+		"isEnabled": true,
+		"Auto": false,
+		"AutoClick": true,
+		"service": 0,
+		"Delay": 20
+    },
 
    "playerName" : "LoaiA",
-
 
    "singleMode" : true
 }

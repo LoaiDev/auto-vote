@@ -20,20 +20,34 @@ const sites = config.get('sites');
 const singleMode = config.get('singleMode');
 const playerName = config.get('playerName');
 
-const chromSettings = {
+const reCaptchaExtensionPath = require('path').join(__dirname, 'extensions/reCaptch-solver');
+
+var extensionBackgroundPage;
+
+const chromeSettings = {
     executablePath: 'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe',
     headless: false,
     args: [
-        //  '--user-data-dir=C:\\users\\Loai Arkam\\AppData\\Local\\Chrom0e'
+        `--disable-extensions-except=${reCaptchaExtensionPath}`,
+        `--load-extension=${reCaptchaExtensionPath}`
+        //  '--user-data-dir=C:\\users\\Loai Arkam\\AppData\\Local\\Chrome'
         //  `--proxy-server= http://159.203.44.118:8080`
     ]
 };
 
 (async () => {
-    const browser = await puppeteer.launch(chromSettings)
 
+    const browser = await puppeteer.launch(chromeSettings)
+    const targets = await browser.targets();
+    const extensionBackgroundTarget = targets.find(target => target.type() === 'background_page');
+    extensionBackgroundPage = await extensionBackgroundTarget.page();
+    extensionBackgroundPage.evaluate(settings => {
 
-    for (let index = 0; index < sites.length; index++) {
+        setOptions(settings);
+
+    }, config.get('captcha'))
+
+    for (let index = 2; index < sites.length; index++) {
         singleMode ? await vote(browser, sites[index]) : vote(browser, sites[index]);
     }
 
@@ -50,9 +64,9 @@ async function vote(browser, site) {
             .then(_ => sleep(500))
             .then(_ => selectOptions(page, site))
             .then(_ => sleep(500))
-            .then(_ => resolve(page))
+            .then(_ => solveCaptcha(page))
             .then(_ => sleep(500))
-            .then(_ => solveCaptca(page))
+            //.then(_ => resolve(page))
             .catch(error => console.log(error))
 
     })
@@ -106,16 +120,13 @@ async function selectOptions(page, site) {
     })
 }
 
-async function solveCaptca(page) {
-
-    return new Promise(function (resolve, reject) {
-        
-    })
+async function solveCaptcha(page) {
+    console.log("solving")
 }
 
 function sleep(duration, value) {
     value = value || true;
-    console.log("sleeping")
+    //console.log("sleeping")
     return new Promise(function (resolve, reject) {
         setTimeout(() => resolve(value), duration);
     })
